@@ -1,16 +1,3 @@
-Jetty Gradle Hello World, TDD Style
-=====
-
-I want to make a simple web app with Jetty, using Gradle as the build
-tool.  But I'm big on Test Driven Development (TDD), so I want to do it
-TDD style.
-
-My first task is to get a simple Gradle build file in place.  Looking at
-http://stackoverflow.com/questions/7864521/gradle-jettyrun-how-does-this-thing-work
-, we get a good starter for a build.gradle file.  We add boiler-plate
-java build/test stuff, and our build.gradle looks like:
-
-```groovy
 apply plugin: 'java'
 apply plugin: 'jetty'
 
@@ -39,6 +26,3 @@ task integrationTest(type: Test) {
         jettyStop.execute()
     }
 }
-```
-
-We run `gradle build` and get success.  Ready for our first test.
