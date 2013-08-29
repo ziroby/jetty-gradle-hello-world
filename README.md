@@ -93,14 +93,14 @@ I create a server class with JAX-RS annotations.
 ```java
 @Path("/hello")
 public class HelloWebapp {
-        @GET()
-        public String hello() {
-                return "";
-        }
+    @GET()
+    public String hello() {
+        return "";
+    }
 }
 ```
 
-And I add dependencies to the Gradled file.
+And I add dependencies to the Gradle file.
 
 ```groovy
 dependencies {
@@ -113,7 +113,7 @@ dependencies {
 
 The setup as is creates a web server at 
 "http://localhost:8080/<directory-name>/hello".  I want it at root, 
-"http://localhost:8080/hello", so I have to set the context path in the gradle
+"http://localhost:8080/hello", so I have to set the context path in the Gradle
 build file.
 
 ```groovy
@@ -169,3 +169,38 @@ Expected: is "Hello, World!"
 This is the error I was looking for, so I check in the code.  I'm not going to
 fix this yet, because I need to call my engine to get the string to return.
 
+The Hello Service
+-----
+
+I want to solve this with a service, so I write it like I already have the 
+service.
+
+```java
+@Path("/hello")
+public class HelloWebapp {
+    private static HelloWorldService helloWorldService = new HelloWorldService();
+    
+    @GET()
+    public String hello() {
+        return helloWorldService.sayHello();
+    }
+}
+```
+
+The HelloWorldService class is trivial:
+
+```java
+public class HelloWorldService {
+    public String sayHello() {
+        return "Hello, World!";
+    }
+}
+
+```
+
+Now I run `gradle integrationTest`, and it passes, "BUILD SUCCESSFUL".  I'm 
+done.
+
+The source code is available at 
+https://github.com/ziroby/jetty-gradle-hello-world .  
+  
